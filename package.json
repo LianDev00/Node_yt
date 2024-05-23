@@ -1,0 +1,34 @@
+{
+  "name": "node_yt",
+  "version": "1.0.0",
+  "description": "Curso de Node hecho por Midudev",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LianDev00/Node_yt.git"
+  },
+  "keywords": [
+    "curso",
+    "node",
+    "nodejs",
+    "midudev"
+  ],
+  "author": "Liandev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LianDev00/Node_yt/issues"
+  },
+  "homepage": "https://github.com/LianDev00/Node_yt#readme",
+  "dependencies": {
+    "picocolors": "1.0.1"
+  },
+  "devDependencies": {
+    "standard": "^17.1.0"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  }
+}

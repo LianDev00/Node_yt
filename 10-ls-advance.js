@@ -1,44 +1,43 @@
-const fs = require("node:fs/promises");
-const path = require("node:path");
+const fs = require('node:fs/promises')
+const path = require('node:path')
 
-const folder = process.argv[2] ?? ".";
+const pc = require('picocolors')
 
-async function ls(directory) {
-  let files;
+const folder = process.argv[2] ?? '.'
+
+async function ls (directory) {
+  let files
 
   try {
-    files = await fs.readdir(folder);
+    files = await fs.readdir(folder)
   } catch {
-    console.error(`No se pudo leer el directorio ${folder}`);
-    process.exit(1);
+    console.error(pc.red(`❌| No se pudo leer el directorio ${folder}`))
+    process.exit(1)
   }
 
   const filePromises = files.map(async (file) => {
-    const filePath = path.join(folder, file);
-    let stats;
+    const filePath = path.join(folder, file)
+    let stats
     try {
-      stats = await fs.stat(filePath); // --> informacion del archivo
+      stats = await fs.stat(filePath) // --> informacion del archivo
     } catch {
-      console.error(`No se pudo leer el directorio ${folder}`);
-      process.exit(1);
+      console.error(pc.red(`❌| No se pudo leer el directorio ${folder}`))
+      process.exit(1)
     }
 
-    const isDirectory = stats.isDirectory();
-    const fileType = isDirectory ? "d" : "f";
-    const fileSize = stats.size.toString();
-    const fileModified = stats.mtime.toLocaleString();
+    const isDirectory = stats.isDirectory()
+    const fileType = isDirectory ? 'd' : 'f'
+    const fileSize = stats.size.toString()
+    const fileModified = stats.mtime.toLocaleString()
 
-    return {
-      tipo: fileType,
-      nombre: file,
-      tamaño: fileSize,
-      fecha: fileModified,
-    };
-  });
+    return `${pc.white(fileType)} ${pc.blue(file.padEnd(25))} ${pc.yellow(
+      fileSize.padStart(10)
+    )} ${pc.cyan(fileModified)}`
+  })
 
-  const fileInfo = await Promise.all(filePromises);
+  const fileInfo = await Promise.all(filePromises)
 
-  console.table(fileInfo);
+  fileInfo.forEach((fileInfo) => console.log(fileInfo))
 }
 
-ls(folder);
+ls(folder)
